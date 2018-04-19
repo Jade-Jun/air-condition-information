@@ -1,9 +1,9 @@
-const localDataController = require('./localDataController.js')
+const fsReadController = require('./fsReadController.js')
 
 const Air = {
     getList : function() {
         return new Promise(async (resolve, reject) => {
-            let data = localDataController.getList()
+            let data = fsReadController.getList()
             if (data) {
                 resolve(data)
             } else {
@@ -18,14 +18,14 @@ const Air = {
 
     getSidoData : function(sidoName) {
         return new Promise(async (resolve, reject) => {
-            remoteDataController.getData(sidoName)
+            fsReadController.getSidoData(sidoName)
             .then(data => this.saveData(data))
         })
     },
 
     getCityData : function (sidoName, city) {
         return new Promise(async (resolve, reject) => {
-            let data = localDataController.getCityData(sidoName, city)
+            let data = fsReadController.getCityData(sidoName, city)
             if (data.length > 0) {
                 console.log('get local data')
                 resolve({data})
