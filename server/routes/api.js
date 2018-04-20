@@ -5,7 +5,6 @@ router.get('/', (req, res) => {
     res.json("this is index page")
 })
 
-
 /**
  * 저장된  전체리스트 api
  */

@@ -69,8 +69,8 @@ const DataManager = {
         let data = this.parsingData(item.list)
     },
 
-    existsDir : function() {
-        return fs.existsSync(now) ? true : false
+    existsDir : function(dataPath) {
+        return fs.existsSync(dataPath) ? true : false
     },
 
     createDir : function(dataPath) {
