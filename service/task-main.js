@@ -2,19 +2,14 @@ const cron = require('node-cron')
     ,localDataController = require('./controller/localDataController.js')
     ,remoteDataController = require('./controller/remoteDataController.js')
     ,path = require('path')
+    ,utils = require('../utils/utils.js')
 
 /**
  * file merge
  */
 cron.schedule('*/1 * * * *', function () {
     
-    let d = new Date()
-    ,curr_date = d.getDate()
-    ,curr_month = d.getMonth() + 1  //Months are zero based
-    ,curr_year = d.getFullYear()
-    ,curr_hour = d.getHours()
-    const now = curr_year + "-" + curr_month + "-" + curr_date + "_" + curr_hour
-    const dataPath = path.join(__dirname, '../data/' + now)
+    const dataPath = path.join(__dirname, '../data/' + utils.nowTime())
 
     console.log('cron dir check : ' + dataPath )
     // 매칭되는 dir이 없을 경우에만 동작함.

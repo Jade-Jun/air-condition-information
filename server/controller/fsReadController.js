@@ -1,22 +1,5 @@
-const fs = require('fs')
+const fs = require('../../utils/fsManager.js')
     , path = require('path')
-
-const FsManager = {
-    readFile : function(filePath) {
-        let exists = fs.existsSync(filePath) 
-        if (exists) {
-            let data = fs.readFileSync(filePath)
-            let json = JSON.parse(data)
-            return json
-        } else {
-            return null
-        }
-    },
-
-    exists : function(filePath) {
-        return fs.existsSync(filePath) 
-    }
-}
 
 const dataManager = {
     /**

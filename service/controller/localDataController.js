@@ -1,33 +1,7 @@
-const fs = require('fs')
+const fs = require('../../utils/fsManager.js')
     , path = require('path')
     , model = require('../model/air.js')
     , local = require('../model/local.js')
-
-const FsManager = {
-    exists : function(filePath) {
-        return fs.existsSync(filePath) 
-    },
-
-    createDir : function(dir) {
-        if (!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
-        }
-    },
-
-    writeFile : function(filePath, data) {
-        console.log('write file : ' + filePath)
-        let options = { encoding: 'utf8'}
-        let streamFile = fs.createWriteStream(filePath, options)
-
-        if (streamFile) {
-            let json = JSON.stringify(data);
-            streamFile.end(json)
-        } else {
-            console.log('file open fail!!!')
-        }
-        return true
-    },
-}
 
 const DataManager = {
     createModel : function(item) {
@@ -44,7 +18,7 @@ const DataManager = {
         return schema
     },
 
-    parsingData : function(dirPath, items) {
+    parsingData : function(dir, items) {
         console.log('parsing start')
 
         let recentTime = items[0].dataTime
@@ -64,25 +38,29 @@ const DataManager = {
         }
         obj.data.push(data)
 
-        let filePath = dirPath + '/' + data.sidoName + '.json'
-        return FsManager.writeFile(filePath, obj)
+        let filePath = dir + '/' + data.sidoName + '.json'
+        return fs.writeFile(filePath, obj)
     },
 
-    saveData : function(dirPath, item) {
+    saveData : function(dir, item) {
         console.log('local save data start')
-        let data = this.parsingData(dirPath, item.list)
+        let data = this.parsingData(dir, item.list)
     },
 
-    existsDir : function(dirPath) {
-        return fs.existsSync(dirPath) ? true : false
+    existsDir : function(dir) {
+        return fs.existsDir(dir)
     },
 
-    createDir : function(dirPath) {
-        FsManager.createDir(dirPath )
+    createDir : function(dir) {
+        fs.createDir(dir )
+    },
+
+    getCount : function(dir) {
+        return  fs.count(dir)
     },
 
     meregeFile : function() {
-
+        
     }
 }
 

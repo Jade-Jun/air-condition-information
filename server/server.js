@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 if (process.env.WITH_SCHEDULE) {
     // pid 파일이 존재하는지 확인 (npid)
     // if (exists)
-    const cron = require('../service/task-main.js')
+    const cron = require('../service/cron.js')
 }
 
 app.use('/', require('./routes/api.js'))
