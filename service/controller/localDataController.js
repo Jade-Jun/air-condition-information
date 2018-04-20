@@ -1,22 +1,27 @@
 const fs = require('fs')
     , path = require('path')
+    , model = require('../model/air.js')
+    , local = require('../model/local.js')
 
 const FsManager = {
     exists : function(filePath) {
         return fs.existsSync(filePath) 
     },
 
-    createFolder : function(dir) {
+    createDir : function(dir) {
         if (!fs.existsSync(dir)){
             fs.mkdirSync(dir);
         }
     },
 
     writeFile : function(filePath, data) {
+        console.log('write file : ' + filePath)
+        let options = { encoding: 'utf8'}
         let streamFile = fs.createWriteStream(filePath, options)
 
         if (streamFile) {
-            streamFile.end(data)
+            let json = JSON.stringify(data);
+            streamFile.end(json)
         } else {
             console.log('file open fail!!!')
         }
@@ -39,13 +44,13 @@ const DataManager = {
         return schema
     },
 
-    parsingData : function(items) {
+    parsingData : function(dirPath, items) {
         console.log('parsing start')
 
         let recentTime = items[0].dataTime
         console.log("recent time" + recentTime)
 
-        let data = save
+        let data = local
         data.sidoName = items[0].sidoName
         for (let i = 0; i < items.length; i++) {
             let item = items[i]
@@ -59,22 +64,21 @@ const DataManager = {
         }
         obj.data.push(data)
 
-        let exists = fileManager.exists(filePath)
-        console.log(exists ? "it's exists!" : "no exists!")
-        return fileManager.saveFile(exists, obj, filePath)
+        let filePath = dirPath + '/' + data.sidoName + '.json'
+        return FsManager.writeFile(filePath, obj)
     },
 
-    saveData : function(item) {
+    saveData : function(dirPath, item) {
         console.log('local save data start')
-        let data = this.parsingData(item.list)
+        let data = this.parsingData(dirPath, item.list)
     },
 
-    existsDir : function(dataPath) {
-        return fs.existsSync(dataPath) ? true : false
+    existsDir : function(dirPath) {
+        return fs.existsSync(dirPath) ? true : false
     },
 
-    createDir : function(dataPath) {
-        FsManager.createFolder(dataPath )
+    createDir : function(dirPath) {
+        FsManager.createDir(dirPath )
     },
 
     meregeFile : function() {

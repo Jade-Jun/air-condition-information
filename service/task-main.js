@@ -1,5 +1,6 @@
 const cron = require('node-cron')
     ,localDataController = require('./controller/localDataController.js')
+    ,remoteDataController = require('./controller/remoteDataController.js')
     ,path = require('path')
 
 /**
@@ -21,6 +22,15 @@ cron.schedule('*/1 * * * *', function () {
         console.log('main cron start')
         // dir 생성
         localDataController.createDir(dataPath)
+
+        let sidoNames = remoteDataController.getSidonames()
+        for (let i = 0; i<sidoNames.length; i++) {
+            let sidoName = sidoNames[i]
+            remoteDataController.getData(sidoName)
+            .then(data => localDataController.saveData(dataPath, data))
+            .catch(err => console.log(err))
+        }
+        
     } else {
         console.log('main cron done')
     }
