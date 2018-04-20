@@ -1,15 +1,15 @@
 const fs = require('fs')
-
-let d = new Date()
-,curr_date = d.getDate()
-,curr_month = d.getMonth() + 1  //Months are zero based
-,curr_year = d.getFullYear()
-,curr_hour = d.getHours()
-const folderName = curr_year + "-" + curr_month + "-" + curr_date + "_" + curr_hour
+    , path = require('path')
 
 const FsManager = {
     exists : function(filePath) {
         return fs.existsSync(filePath) 
+    },
+
+    createFolder : function(dir) {
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
     },
 
     writeFile : function(filePath, data) {
@@ -67,6 +67,18 @@ const DataManager = {
     saveData : function(item) {
         console.log('local save data start')
         let data = this.parsingData(item.list)
+    },
+
+    existsDir : function() {
+        return fs.existsSync(now) ? true : false
+    },
+
+    createDir : function(dataPath) {
+        FsManager.createFolder(dataPath )
+    },
+
+    meregeFile : function() {
+
     }
 }
 
