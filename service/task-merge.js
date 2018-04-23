@@ -7,7 +7,7 @@ const cron = require('node-cron')
 /**
  * 파일 병합 cron
  */
-cron.schedule('*/1 * * * *', function () {
+cron.schedule('*/30 * * * *', function () {
 
     const dataPath = path.join(__dirname, '../data/' + utils.nowTime())
     const  mergePath = path.join(__dirname, '../data/') + utils.nowDay() + ".json"
