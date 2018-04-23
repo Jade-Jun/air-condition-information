@@ -49,4 +49,4 @@ npm run log
 
 
 ## API
-> [API 문서는 이쪽을 참조]()
+> [API 문서는 이쪽을 참조](https://github.com/Jade-Jun/air-condition-information/wiki/Api)

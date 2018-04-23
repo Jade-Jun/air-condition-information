@@ -23,7 +23,7 @@ const dataManager = {
 
             if (sidoName == item.sidoName) {
                 console.log('search item : ' + item.sidoName)
-                return item.list
+                return item
             }
         }
         return null
