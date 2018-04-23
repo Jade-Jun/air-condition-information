@@ -9,9 +9,9 @@ router.get('/', (req, res) => {
  * 저장된  전체리스트 api
  */
 router.get('/api/getList', (req, res, next) => {
-    // mainController.getList()
-    // .then(r => res.json(r))
-    // .catch(next)
+    airController.getList()
+    .then(r => res.json(r))
+    .catch(next)
 })
 
 /**
@@ -19,18 +19,18 @@ router.get('/api/getList', (req, res, next) => {
  * @param city : 도시 이름 
  */
 router.get('/api/getSidoData/:sidoName', (req, res, next) => {
-    // mainController.getSidoData(req.params.sidoName)
-    //     .then(r => res.json(r))
-    //     .catch(next)
+    airController.getSidoData(req.params.sidoName)
+        .then(r => res.json(r))
+        .catch(next)
 })
 
 /**
  * 주요 도시별 대기정보 API
  */
 router.get('/api/getCityData/:sidoName/:city', (req, res, next) => {
-    // mainController.getCityData(req.params.sidoName, req.params.city)
-    // .then(r => res.json(r))
-    // .catch(next)
+    airController.getCityData(req.params.sidoName, req.params.city)
+    .then(r => res.json(r))
+    .catch(next)
 })
 
 module.exports = router

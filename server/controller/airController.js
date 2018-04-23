@@ -18,8 +18,16 @@ const Air = {
 
     getSidoData : function(sidoName) {
         return new Promise(async (resolve, reject) => {
-            fsReadController.getSidoData(sidoName)
-            .then(data => this.saveData(data))
+            let data = fsReadController.getSidoData(sidoName)
+            if (data) {
+                resolve(data)
+            } else {
+                let error = new Error()
+                    error.message = `검색되는 데이터가 존재하지 않습니다.`
+                    error.status = 500
+                console.log('error : ' + error)
+                reject(error)
+            }
         })
     },
 

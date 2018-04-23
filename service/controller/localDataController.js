@@ -24,21 +24,17 @@ const DataManager = {
         let recentTime = items[0].dataTime
         console.log("recent time" + recentTime)
 
-        let data = local
-        data.sidoName = items[0].sidoName
+        let obj = local
+        obj.sidoName = items[0].sidoName
         for (let i = 0; i < items.length; i++) {
             let item = items[i]
             if (recentTime == item.dataTime) {
                let schema =  this.createModel(item)
-               data.list.push(schema)
+               obj.list.push(schema)
             }
         }
-        let obj = {
-            data : []
-        }
-        obj.data.push(data)
 
-        let filePath = dir + '/' + data.sidoName + '.json'
+        let filePath = dir + '/' + obj.sidoName + '.json'
         return fs.writeFile(filePath, obj)
     },
 
@@ -61,11 +57,9 @@ const DataManager = {
 
     readFile : function(filePath) {
         console.log("read file path : " + filePath)
-        let obj  = {
-            data : []
-        }
+        let obj  = local
         obj = fs.readFile(filePath)
-        return obj.data
+        return obj
     },
 
     saveMerge : function(filePath, data) {

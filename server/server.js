@@ -14,6 +14,7 @@ if (process.env.WITH_SCHEDULE) {
 
 app.use('/', require('./routes/api.js'))
 
+console.log("port use : " + port)
 app.listen(port, function() {
     console.log("go! go!!")
 })

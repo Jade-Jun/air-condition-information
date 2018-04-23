@@ -47,13 +47,17 @@ const FsManager = {
 
     writeArrayFile : function(filePath, data) {
         console.log('write file : ' + filePath)
+
+        // 기존 파일이 존재하면 제거
+        if (this.exists(filePath)) {
+            fs.unlinkSync(filePath) 
+        }
+            
         let options = { encoding: 'utf8'}
         let streamFile = fs.createWriteStream(filePath, options)
 
         if (streamFile) {
-            let json = JSON.stringify(data);
-            
-            streamFile.end(JSON.stringify({data}))
+            streamFile.end(JSON.stringify(data))
         } else {
             console.log('file open fail!!!')
         }

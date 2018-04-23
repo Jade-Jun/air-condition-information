@@ -1,6 +1,6 @@
 const local = {
-    sidoName : '',
-    list : new Array()
+    sidoName : 'string',
+    list : []
 }
 
 module.exports = local

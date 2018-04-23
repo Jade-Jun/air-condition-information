@@ -10,6 +10,7 @@ const cron = require('node-cron')
 cron.schedule('*/1 * * * *', function () {
     
     const dataPath = path.join(__dirname, '../data/' + utils.nowTime())
+    const  mergePath = path.join(__dirname, '../data/') + utils.nowDay() + ".json"
 
     console.log('cron dir check : ' + dataPath )
     // 매칭되는 dir이 없을 경우에만 동작함.

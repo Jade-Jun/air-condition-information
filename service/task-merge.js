@@ -10,16 +10,11 @@ const cron = require('node-cron')
 cron.schedule('*/1 * * * *', function () {
 
     const dataPath = path.join(__dirname, '../data/' + utils.nowTime())
-    const  mergePath = path.join(__dirname, '../data/') + utils.nowTime() + ".json"
+    const  mergePath = path.join(__dirname, '../data/') + utils.nowDay() + ".json"
 
     // 해당 시간에 매칭되는 merge 된 json 파일 존재하는지 확인
-    if (!localDataController.exists(mergePath)) {
+    if (localDataController.existsDir(dataPath)) {
         console.log('merge cron start')
-
-        // donwload 완료됨 json파일이 존재하는지 확인
-        if (!localDataController.existsDir(dataPath)) {
-            return
-        }
         
         let sidoNames = remoteDataController.getSidonames()
         let fileCount = localDataController.getCount(dataPath)
@@ -29,19 +24,21 @@ cron.schedule('*/1 * * * *', function () {
             console.log('file count is no match')
         } else {
 
-            const data = new Array()
+            const schema ={
+                time : utils.nowTime(),
+                data : []
+            }
 
             // 파일 로드
             console.log('file count is match')
             for (let i = 0; i < sidoNames.length; i++) {
                 let sidoName = sidoNames[i]
-                let path = localDataController.readFile(dataPath + "/" + sidoName + ".json")
-                data.push(path)
+                let item = localDataController.readFile(dataPath + "/" + sidoName + ".json")
+                schema.data.push(item)
             }
-            console.log("merge data array : " +  data)
 
             // 병합 파일 생성
-            localDataController.saveMerge(mergePath, data)
+            localDataController.saveMerge(mergePath, schema)
         }
 
     } else {
