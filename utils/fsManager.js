@@ -43,6 +43,20 @@ const FsManager = {
             console.log('file open fail!!!')
         }
         return true
+    },
+
+    writeArrayFile : function(filePath, data) {
+        console.log('write file : ' + filePath)
+        let options = { encoding: 'utf8'}
+        let streamFile = fs.createWriteStream(filePath, options)
+
+        if (streamFile) {
+            let json = JSON.stringify(data);
+            
+            streamFile.end(JSON.stringify({data}))
+        } else {
+            console.log('file open fail!!!')
+        }
     }
 }
 

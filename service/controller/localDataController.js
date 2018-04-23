@@ -59,8 +59,18 @@ const DataManager = {
         return  fs.count(dir)
     },
 
-    meregeFile : function() {
-        
+    readFile : function(filePath) {
+        console.log("read file path : " + filePath)
+        let obj  = {
+            data : []
+        }
+        obj = fs.readFile(filePath)
+        return obj.data
+    },
+
+    saveMerge : function(filePath, data) {
+        console.log("merge file create path : " + filePath)
+        fs.writeArrayFile(filePath, data)
     }
 }
 
