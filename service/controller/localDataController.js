@@ -64,7 +64,8 @@ const DataManager = {
 
     saveMerge : function(filePath, data) {
         console.log("merge file create path : " + filePath)
-        fs.writeArrayFile(filePath, data)
+        fs.deleteFile(filePath)
+        fs.writeFile(filePath, data)
     }
 }
 

@@ -5,7 +5,8 @@ const cron = require('node-cron')
     ,utils = require('../utils/utils.js')
 
 /**
- * file merge
+ * 해당 cron은 서버로 부터 데이터(공기정보)를 받아 로컬에 파일로 저장하는 cron이다.
+ * 동작 주기는 아래 시간(분)을 기준으로 동작한다.
  */
 cron.schedule('*/720 * * * *', function () {
     

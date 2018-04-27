@@ -1,6 +1,7 @@
+// 대기 정보 list에 대한 model 
 const air = {
-    sidoName : 'string',
-    cityName : 'string',
+    sidoName : 'string',   // 서울, 대구, 부산, 인천...   
+    cityName : 'string',   // 관악구, 구로구...
     dataTime: 'date',
     so2Value: 'string',
     coValue: 'string',

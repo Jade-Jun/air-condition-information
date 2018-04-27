@@ -5,7 +5,8 @@ const cron = require('node-cron')
     ,utils = require('../utils/utils.js')
 
 /**
- * 파일 병합 cron
+ * 해당 크론은 다운받은 파일을 병합하여 하나의 json파일로 만드는 cron이다.
+ * 동작 주기는 아래 시간(분)을 기준으로 동작한다.
  */
 cron.schedule('*/30 * * * *', function () {
 
